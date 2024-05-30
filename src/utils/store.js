@@ -6,7 +6,7 @@ const store= configureStore({
     reducer:{
         app:appstore,
         search:serachslice,
-        replies:repliesSlice,
+        reply:repliesSlice,
     }
 
 })

@@ -58,7 +58,7 @@ const Comment=({data})=>{
     let handleReplyToggle=()=>{dispatch(togglereply());console.log("gghjgj")}
 
     
-    return(<div className="bg-slate-200 p-3 mb-2">
+    return(<div className="bg-slate-200 shadow-xl p-3 mb-2">
         <div className='flex'>
             <img className='h-6 mt-3' src="https://cdn-icons-png.freepik.com/256/1077/1077114.png?semt=ais_hybrid" alt=""></img>
             <div className='ml-3'><div className='font-bold'>{data.name}</div>
@@ -70,7 +70,7 @@ const Comment=({data})=>{
 }
 
 const Commentlist=({comments})=>{
-    let booleanval=useSelector((store)=>store.replies.show) 
+    let booleanval=useSelector((store)=>store.reply.show) 
     console.log(booleanval)
     return(
 comments.map(comment=><><div><Comment data={comment}/></div>
@@ -82,7 +82,7 @@ comments.map(comment=><><div><Comment data={comment}/></div>
     
 const Commentscontainer = () => {
   return (
-    <div className='m-5 max-w-lg p-2'>
+    <div className='m-5 w-7/12 p-2'>
         <h1 className='text-2xl font-bold'>Commentss</h1>
         <Comment data={commentdata[0]}/>
         

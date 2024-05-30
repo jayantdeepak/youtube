@@ -26,8 +26,8 @@ let id=searchParams.get("v")
 
   },[])
   console.log(livechat)
-  return (<div><div className='flex justify-evenly'><div><iframe className='p-4 shadow-lg'
-  width="800"
+  return (<div ><div className='flex pl-8 justify-evenly'><div><iframe className='p-4 shadow-lg'
+  width="780"
    height="400"
     src={"https://www.youtube.com/embed/"+id}
      title="YouTube video player"
