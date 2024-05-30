@@ -64,11 +64,11 @@ const Head = () => {
     <div className='grid grid-flow-col p-5 m-2 shadow-lg '>
       <div className='flex col-span-1 '>
          <img onClick={toggleMenuHandler} className='h-8' src="https://blog.hubspot.com/hs-fs/hubfs/What%20is%20a%20Hamburger%20Button.png?width=225&name=What%20is%20a%20Hamburger%20Button.png" alt="" />
-         <img className='h-8' src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_of_YouTube_%282015-2017%29.svg/2560px-Logo_of_YouTube_%282015-2017%29.svg.png'></img>
+         <img className='ml-8 h-8' src='https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/youtube-logo-icon.png'></img>
       </div>
     <div className='flex-col' >
       <div className='flex justify-center col-span-10'>
-        <input className='w-full border border- shadow-lg text-center rounded-full
+        <input className='w-full border h-10 border- shadow-lg text-center rounded-tl-full rounded-bl-full
        ' type='text' placeholder='serach'
        onFocus={()=>{setshowsuggestionlist(true)}}
        onBlur={()=>{setshowsuggestionlist(false);setSerchQuery("")}}
@@ -76,9 +76,9 @@ const Head = () => {
        onChange={(e)=>{setSerchQuery(e.target.value)}}
        
        ></input>
-       <button>search</button>
+       <button className='h-10 w-20 shadow-lg text-center rounded-tr-full rounded-br-full'>search</button>
        </div>
-       <div className=" absolute px-7 w-96 bg-slate-200 shadow-lg">
+       <div className=" absolute px-7 w-4/12 bg-slate-100 shadow-2xl">
         {sug.map(
           each=>sug&&
             <Serchresultindividual item={each}/>

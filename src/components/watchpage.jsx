@@ -1,52 +1,79 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { closeMenu } from '../utils/appslice'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import generateRandomText from '../helperfunction/random_msg'
 import Commentscontainer from './commentscontainer';
+import generate from '../helperfunction/random_name'
+import Side_recommendedVideoCard from './Side_recommendedVideoCard'
+import AllVideoContext from '../context/all vedio_context'
 
 const Watchpage = () => {
   let[livechat,setlivechat]=useState([])
-  const [searchParams] = useSearchParams()
-// console.log(searchParams.get("v"))
-let id=searchParams.get("v")
-
-
+  let [randomName,setRandomName]=useState([])
+  let [searchParams] = useSearchParams() 
+  let id=searchParams.get("v")
   let dispatch=useDispatch()
 
   useEffect(()=>{
+
+
     dispatch(closeMenu())
 
-    setInterval(()=>{
-      let text=generateRandomText(20)
-      
-    setlivechat(prev=>[...prev,text])
-    },2000000)
+    const i=setInterval(()=>{
+          
+        let text=generateRandomText(20)
+          let rdmname=generate()
+         // setRandomName(prev=>[...prev,rdmname])
+           randomName.push(rdmname)
+          setlivechat(prev=>[...prev,text])
+                             },200000)
+
+       return()=> clearInterval(i)
     
-
   },[])
-  console.log(livechat)
-  return (<div ><div className='flex pl-8 justify-evenly'><div><iframe className='p-4 shadow-lg'
-  width="780"
-   height="400"
-    src={"https://www.youtube.com/embed/"+id}
-     title="YouTube video player"
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-      referrerpolicy="strict-origin-when-cross-origin"
-       allowfullscreen></iframe>
 
-   
- </div>
-      <div className='w-100% flex-col h-96 shadow-2xl border-blue-950 mx-24 flex-1 text-center'>
-           <div className='flex justify-center align-middle h-10 bg-slate-200'>live chat</div>
-           <div className="flex flex-col-reverse overflow-y scroll-m-0">
-            {livechat.map(each=><li  style={{listStyleType:'none'} }>{each}</li>)}
+let {allVideoData}=useContext(AllVideoContext)
+console.log(allVideoData)
+ 
+  return (
+  <div >
+    <div className='flex flex-2 pl-8 justify-between'>
+      <div className='p-4 shadow-lg'>
+          <iframe className='iframe' 
+             
+              src={"https://www.youtube.com/embed/"+id}
+              title="YouTube video player"
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              referrerpolicy="strict-origin-when-cross-origin"
+              >
+            
+          </iframe>
+      </div>
+      <div className=' livechat flex-col  overflow-y-scroll h-6/12 shadow-2xl  text-center'>
+           <div className='flex justify-center align-middle h-10 bg-slate-200'>live chat
+           </div>
+           <div className="flex flex-col-reverse h-12/12 overflow-y ">
+               {livechat.map(each=>
+               <li  style={{listStyleType:'none'} }>
+              <img className='h-3'
+               src="https://cdn-icons-png.freepik.com/256/1077/1077114.png?semt=ais_hybrid"/>
+               {each}</li>)}
             </div>
-  </div>
+       </div>
   
- </div>
- <Commentscontainer/>
+   </div>
+   <div className='flex justify-between mr-3'> 
+    <Commentscontainer/>
+    <div className='bg-slate-200 mt-16 w-5/12 h-12/12'>
+     
+      {allVideoData.map(info=><Link to={"/watch?v="+info.id}><Side_recommendedVideoCard info={info} /></Link>)}
+      
+      
+    </div>
+    </div>
+
  </div>
   )
 }

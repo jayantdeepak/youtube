@@ -4,7 +4,7 @@ const Videocard = ({info}) => {
     let{snippet,statistics}=info
     let{
         channelTitle
-        ,title,thumbnails}=snippet
+        ,title}=snippet
   return (
     <div className='p-2 m-2 w-72 shadow-md'>
       <img className="rounded-lg" src={info.snippet.thumbnails.medium.url}></img>
