@@ -1,44 +1,49 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch} from 'react-redux'
 import { closeMenu } from '../utils/appslice'
 import { Link, useSearchParams } from 'react-router-dom'
-import generateRandomText from '../helperfunction/random_msg'
 import Commentscontainer from './commentscontainer';
-import generate from '../helperfunction/random_name'
 import Side_recommendedVideoCard from './Side_recommendedVideoCard'
 import AllVideoContext from '../context/all vedio_context'
+import { addmessage } from '../utils/livechatclice'
+
+
+
+import Livechatcontainer from './Livechatcontainer';
+
+
 
 const Watchpage = () => {
-  let[livechat,setlivechat]=useState([])
-  let [randomName,setRandomName]=useState([])
+
+  let [Lchat,setlivechat]=useState("")
   let [searchParams] = useSearchParams() 
   let id=searchParams.get("v")
   let dispatch=useDispatch()
+  
 
-  useEffect(()=>{
+  useEffect(()=>{dispatch(closeMenu())},[])
 
+  let addtolivechat=()=>{
+    Lchat != ""&&
+    dispatch(addmessage({
+      name:"jayant",
+      message:Lchat
+    }
+     )
+      )
+      setlivechat("")
 
-    dispatch(closeMenu())
-
-    const i=setInterval(()=>{
-          
-        let text=generateRandomText(20)
-          let rdmname=generate()
-         // setRandomName(prev=>[...prev,rdmname])
-           randomName.push(rdmname)
-          setlivechat(prev=>[...prev,text])
-                             },200000)
-
-       return()=> clearInterval(i)
+  }
     
-  },[])
+    
+
 
 let {allVideoData}=useContext(AllVideoContext)
-console.log(allVideoData)
+// console.log(allVideoData)
  
   return (
   <div >
-    <div className='flex flex-2 pl-8 justify-between'>
+    <div className='flex flex-2 pl-8 '>
       <div className='p-4 shadow-lg'>
           <iframe className='iframe' 
              
@@ -50,18 +55,13 @@ console.log(allVideoData)
               >
             
           </iframe>
-      </div>
-      <div className=' livechat flex-col  overflow-y-scroll h-6/12 shadow-2xl  text-center'>
-           <div className='flex justify-center align-middle h-10 bg-slate-200'>live chat
-           </div>
-           <div className="flex flex-col-reverse h-12/12 overflow-y ">
-               {livechat.map(each=>
-               <li  style={{listStyleType:'none'} }>
-              <img className='h-3'
-               src="https://cdn-icons-png.freepik.com/256/1077/1077114.png?semt=ais_hybrid"/>
-               {each}</li>)}
-            </div>
-       </div>
+      </div >
+      <div className='flex  flex-1 flex-col'>
+           <div className='flex-1 h-[500 px ] mr-5'><Livechatcontainer/></div>
+           <div className='flex'><input className=' flex-1 border h-10  shadow-xl text-center'value={Lchat} onChange={(e)=>{setlivechat(e.target.value)}} placeholder='send to live chat'></input>
+           <button className='h-10 w-20 shadow-lg text-center ' onClick={addtolivechat}>send</button></div>
+           </div>       
+        
   
    </div>
    <div className='flex justify-between mr-3'> 
